@@ -46,6 +46,24 @@ class Troop:
     
     #initializes the pathfinding module
     def pathfinding(self, start_x, start_y, end_x, end_y):
+        '''
+        Uses the pathfinding library to find the path that a troop should take to get to its destination, which includes obstacles.
+        
+        Pre-conditions:
+        start_x; int - must be a valid x coordinate in arena map
+        start_y; int - must be a valid y coordinate in arena map
+        end_x; int - must be a valid x coordinate in arena map
+        end_y; int - must be a valid y coordinate in arena map
+
+        Parameters:
+        start_x; starting x position
+        start_y; starting y position
+        end_x; ending x position
+        end_y; ending y position
+
+        Returns:
+        list of tuples; returns a list of tuples that act as the next tile for the troop to move to
+        '''
         grid = Grid(matrix=arena_map) #sets the grid to search as the arena_map
         start = grid.node(start_x, start_y) #finds the start node
         end = grid.node(end_x, end_y) #finds the end node
@@ -55,6 +73,20 @@ class Troop:
         
     # determines if an enemy is in range of a troop
     def attack_radius(self, card, placed_card):
+        '''
+        inflates a troops hitbox to find any potential enemies in range. If there is, and they are not on the same team, then return the enemy being appended to enemy_list.
+
+        Pre-conditions:
+        card; class instance
+        placed_card; list
+
+        Parameters:
+        card; any troop that has been placed on the arena map
+        placed_card; a list that contains all active troops on the arena map
+
+        Returns:
+        list, returns a list of all enemies in range, if there isn't any, it returns None
+        '''
         enemy_list = [] #initializes an empty list that contains all enemies in range
         radius = self.character_rect(card).inflate(self.range, self.range) #inflates the troops original rect to act as the radius
         for enemy in placed_card: #for all troops on the arena
@@ -67,6 +99,21 @@ class Troop:
     
     #Allows troops to attack each other
     def attack(self, card, all_cards):
+        '''
+        Allows a troop to attack by first seeing if there are any troops in range, then moving towards them if there is. 
+        Once they hit the troop's attack range, they will start taking damage.
+        
+        Pre-conditions:
+        card; class instance
+        all_cards; list
+
+        Parameters:
+        card; The troop that is doing the attacking, used to inflate its hitbox
+        all_cards; a list that contains all troops currently placed
+
+        Returns:
+        Boolean; returns True if troop is attacking and False if the troop isn't attacking
+        '''
         attack_range = self.character_rect(card).inflate(self.attack_range, self.attack_range) #inflates the troops original rect to act as the attack range
         enemy = self.attack_radius(card, all_cards) #Gets all enemies
         if enemy == None:   #if no enemy is found
@@ -88,6 +135,26 @@ class Troop:
 
     #allows troops to move
     def move(self, pos_x, pos_y, dest_x, dest_y):
+        '''
+        This function moves troops using the pathfinding as a helper function based on their current x,y and end x,y. 
+        Returning their x and y once it reaches its destination.
+        
+        Pre-conditions:
+        pos_x; int - must be a valid x coordinate in arena map
+        pos_y; int - must be a valid y coordinate in arena map
+        dest_x; int - must be a valid x coordinate in arena map
+        dest_y; int - must be a valid y coordinate in arena map
+
+        Parameters:
+        pos_x; the troop's current x position
+        pos_y; the troop's current y position
+        dest_x; the troop's target x position
+        dest_y; the troop's target y position
+
+        Returns:
+        int, int (pos_x, pos_y); This is the troop's position after reaching its destination
+
+        '''
         path = self.pathfinding(int(pos_x // TILE_SIZE), int(pos_y // TILE_SIZE), dest_x, dest_y) #gets the path that troops use to travel
         
         if len(path) <= 1: #if the troop is at its destination
@@ -125,6 +192,7 @@ class Troop:
 
     #makes characters die
     def die(self, card):
+
         if card.is_friendly == True: #if card is from the player
             if card in placed_card: #checks if it hasn't already died
                 placed_card.remove(card) #removes troop
