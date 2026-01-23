@@ -304,7 +304,7 @@ class Troop:
 
 #Regular troops
 class Knight(Troop):
-    def __init__(self, hp=1766, speed=1, damage=202, range=100, attack_range=100, attack_cooldown=1, e_cost=3, x=0, y=0, card_png=os.path.join(IMG_DIR, "knight.png"), card_animation=None, is_friendly=None, special_ability=False):
+    def __init__(self, hp=1766, speed=2, damage=202, range=100, attack_range=100, attack_cooldown=1, e_cost=3, x=0, y=0, card_png=os.path.join(IMG_DIR, "knight.png"), card_animation=None, is_friendly=None, special_ability=False):
         super().__init__(hp, speed, damage, range, attack_range, attack_cooldown, e_cost, x, y, card_png, card_animation, is_friendly, special_ability)
 
 class Archers(Troop):
@@ -442,12 +442,12 @@ class Crown_Tower(Towers):
         super().__init__(tower_type, hp, damage, range, attack_range, attack_cooldown, x=x, y=y, tower_animation=tower_animation, is_friendly=is_friendly)
 
 #Initializes tower instances
-enemy_ptower_left = Tower_Troop("Enemy_Tower", 3056, 109, 100, 100, 1.5, 1, 4, os.path.join(IMG_DIR, "tower.jpg"), False)
-enemy_ptower_right = Tower_Troop("Enemy_Tower", 3056, 109, 100, 100, 1.5, 14, 4, os.path.join(IMG_DIR, "tower.jpg"), False)
+enemy_ptower_left = Tower_Troop("Enemy_Tower", 3056, 109, 100, 100, 1.5, 1, 3, os.path.join(IMG_DIR, "tower.jpg"), False)
+enemy_ptower_right = Tower_Troop("Enemy_Tower", 3056, 109, 100, 100, 1.5, 14, 3, os.path.join(IMG_DIR, "tower.jpg"), False)
 player_ptower_left = Tower_Troop("Player_Tower", 3056, 109, 100, 100, 1.5, 1, 18, os.path.join(IMG_DIR, "tower.jpg"), True)
 player_ptower_right = Tower_Troop("Player_Tower", 3056, 109, 100, 100, 1.5, 14, 18, os.path.join(IMG_DIR, "tower.jpg"), True)
 #crown tower setup
-enemy_crown_tower = Crown_Tower("Enemy_Crown_Tower", 4824, 109, 100, 100, 1, 7.5, 2, os.path.join(IMG_DIR, "King_Tower_Red.jpg"), False)
+enemy_crown_tower = Crown_Tower("Enemy_Crown_Tower", 4824, 109, 100, 100, 1, 7.5, 1, os.path.join(IMG_DIR, "King_Tower_Red.jpg"), False)
 player_crown_tower = Crown_Tower("Player_Crown_Tower", 4824, 109, 100, 100, 1.2, 7.5, 21, os.path.join(IMG_DIR, "King_Tower_Blue.jpg"), True)
 
 deck = [Knight, Archers, Giant, The_Guy, Cannon, Xbow] #initializes player deck
@@ -456,18 +456,17 @@ placed_card = [] #list that contains all of the player's placed cards
 enemy_placed = [] #lits that contains all of the enemy's placed cards
 tower_deck = [enemy_ptower_left, enemy_ptower_right, enemy_crown_tower, player_ptower_left, player_ptower_right, player_crown_tower] #initializes all of the towers to the arena
 
-
 #resets all of the towers back to their original state
 def init_cards(tower_deck):
     #princess tower setup
     global enemy_crown_tower, enemy_ptower_left, enemy_ptower_right, player_crown_tower, player_ptower_left, player_ptower_right #overwrites the original towers
-    enemy_ptower_left = Tower_Troop("Enemy_Tower", 3056, 109, 100, 100, 1.5, 2, 5, os.path.join(IMG_DIR, "tower.jpg"), False)
-    enemy_ptower_right = Tower_Troop("Enemy_Tower", 3056, 109, 100, 100, 1.5, 15, 5, os.path.join(IMG_DIR, "tower.jpg"), False)
-    player_ptower_left = Tower_Troop("Player_Tower", 3056, 109, 100, 100, 1.5, 2, 18, os.path.join(IMG_DIR, "tower.jpg"), True)
-    player_ptower_right = Tower_Troop("Player_Tower", 3056, 109, 100, 100, 1.5, 15, 18, os.path.join(IMG_DIR, "tower.jpg"), True)
+    enemy_ptower_left = Tower_Troop("Enemy_Tower", 3056, 109, 100, 100, 1.5, 1, 3, os.path.join(IMG_DIR, "tower.jpg"), False)
+    enemy_ptower_right = Tower_Troop("Enemy_Tower", 3056, 109, 100, 100, 1.5, 14, 3, os.path.join(IMG_DIR, "tower.jpg"), False)
+    player_ptower_left = Tower_Troop("Player_Tower", 3056, 109, 100, 100, 1.5, 1, 18, os.path.join(IMG_DIR, "tower.jpg"), True)
+    player_ptower_right = Tower_Troop("Player_Tower", 3056, 109, 100, 100, 1.5, 14, 18, os.path.join(IMG_DIR, "tower.jpg"), True)
     #crown tower setup
-    enemy_crown_tower = Crown_Tower("Enemy_Crown_Tower", 4824, 109, 100, 100, 1, 9, 2, os.path.join(IMG_DIR, "King_Tower_Red.jpg"), False)
-    player_crown_tower = Crown_Tower("Player_Crown_Tower", 4824, 109, 100, 100, 1.2, 9, 21, os.path.join(IMG_DIR, "King_Tower_Blue.jpg"), True)
+    enemy_crown_tower = Crown_Tower("Enemy_Crown_Tower", 4824, 109, 100, 100, 1, 7.5, 1, os.path.join(IMG_DIR, "King_Tower_Red.jpg"), False)
+    player_crown_tower = Crown_Tower("Player_Crown_Tower", 4824, 109, 100, 100, 1.2, 7.5, 21, os.path.join(IMG_DIR, "King_Tower_Blue.jpg"), True)
     tower_deck = [enemy_ptower_left, enemy_ptower_right, enemy_crown_tower, player_ptower_left, player_ptower_right, player_crown_tower] #creates new tower deck
     return tower_deck
 

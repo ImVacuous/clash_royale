@@ -44,13 +44,13 @@ def draw_arena():
 
 def draw_elixir():
     # draws elixir bar
-    for i in range(game.player_elixir.elixir_count):
+    for i in range(game.player_elixir.elixir_count + 1):
         thickness = 35
         line_height = WINDOW_HEIGHT // 10
         # elixir bar design
-        pygame.draw.rect(WINDOW, PURPLE, (WINDOW_WIDTH - thickness, WINDOW_HEIGHT - ((i + 1) * line_height), thickness, line_height))
+        pygame.draw.rect(WINDOW, PURPLE, (WINDOW_WIDTH - thickness, WINDOW_HEIGHT - (i * line_height), thickness, line_height))
         # elixir bar outline
-        pygame.draw.rect(WINDOW, BLACK, (WINDOW_WIDTH - thickness, WINDOW_HEIGHT - ((i + 1) * line_height), thickness, line_height), 2)
+        pygame.draw.rect(WINDOW, BLACK, (WINDOW_WIDTH - thickness, WINDOW_HEIGHT - (i * line_height), thickness, line_height), 2)
 
 
 #Set up deck on screen

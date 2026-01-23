@@ -114,6 +114,43 @@ class Gamelogic():
         if cards.enemy_crown_tower.hp <= 0:
             self.game_results = 'W' #player wins
 
+    #changes arena if towers are destroyed
+    def arena_change(self):
+        if cards.player_ptower_left.hp <= 0: #player's left tower
+            for r in range(17, 21):
+                for c in range(0, 4):
+                    arena.arena_map[r][c] = 1
+
+        if cards.player_ptower_right.hp <= 0: #player's right tower
+            for r in range(17, 21):
+                for c in range(13, 17):
+                    arena.arena_map[r][c] = 1
+
+        if cards.enemy_ptower_left.hp <= 0: #enemy's lef tower
+            for r in range(2, 6):
+                for c in range(0, 4):
+                    arena.arena_map[r][c] = 1
+
+        if cards.enemy_ptower_right.hp <= 0: #enemy's right tower
+            for r in range(3, 7):
+                for c in range(13, 17):
+                    arena.arena_map[r][c] = 1
+
+def arena_reset():
+    for r in range(3, 6): #enemy left tower
+        for c in range(1, 4):
+            arena.arena_map[r][c] = 0
+    for r in range(3, 6): #enemy right tower
+        for c in range(14, 17):
+            arena.arena_map[r][c] = 0
+    for r in range(18, 21): #player left tower
+        for c in range(1, 4):
+            arena.arena_map[r][c] = 0
+    for r in range(18, 21): #player right tower
+        for c in range(14, 17):
+            arena.arena_map[r][c] = 0
+
+
 
 
 

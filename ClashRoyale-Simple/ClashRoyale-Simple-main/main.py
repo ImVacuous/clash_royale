@@ -71,9 +71,10 @@ def reset():
     cards.enemy_placed.clear() # reset enemy placed cards
     cards.tower_deck.clear() # reset towers
     cards.tower_deck = cards.init_cards(cards.tower_deck) # reinitialize towers
-    game.arena_reset() # reset arena
+    game.arena_reset()
     global gamelogic # reset gamelogic
     gamelogic = game.Gamelogic(0, 0, (pygame.time.get_ticks() // 1000), None)# resets player, enemy towers and game results
+
 
 
 # menu screen
@@ -88,6 +89,7 @@ def menu():
         for event in pygame.event.get():
             if event.type == pygame.QUIT: # exit game
                 pygame.quit()
+                sys.exit()
             if event.type == pygame.KEYDOWN: # key press
                 if event.key == pygame.K_RETURN: # start game
                     loading = False
@@ -120,13 +122,15 @@ def tutorial():
 
 # main game loop
 def game_loop():
-    running = True 
+    running = True
     selected_card = None # currently selected card
     emote_list = []
     global gamelogic
     gamelogic = game.Gamelogic(0, 0, (pygame.time.get_ticks() // 1000), None) # initializes gamelogic
+    clock = pygame.time.Clock() #framerate
     while running:
         WINDOW.fill(BLACK)
+        clock.tick(60) #60 fps
         for event in pygame.event.get():
             if event.type == pygame.QUIT: # exit game
                 pygame.display.quit()
@@ -209,8 +213,8 @@ def game_loop():
                     sounds.unmute_attack()
 
         # drawing screen elements
-        screen.draw_arena()
         screen.draw_deck()
+        screen.draw_arena()
         screen.draw_elixir()
         screen.draw_towers(cards.tower_deck)
 
@@ -221,6 +225,7 @@ def game_loop():
         font.render_to(WINDOW, (screen.ARENA_WIDTH + 50, WINDOW_HEIGHT - 50), f'{min}:{sec}', WHITE)
         
         # game logic
+        gamelogic.arena_change()
         gamelogic.tower_down()
 
         # combines all cards types into one list
